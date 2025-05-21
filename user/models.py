@@ -11,7 +11,6 @@ class User(AbstractUser):
     user_id = models.AutoField(primary_key=True)
     phone = models.CharField(max_length=15, blank=False, null=False)
     is_driver = models.BooleanField(default=False)
-    rating = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True, default=0)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
 
     def __str__(self):
