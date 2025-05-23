@@ -45,3 +45,7 @@ class Review(models.Model):
     driver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='driver_reviews')
     is_user_to_driver_review = models.BooleanField(default=True)
     rating = models.IntegerField(blank = False, null=False)
+
+class RideCancellation(models.Model):
+    ride = models.OneToOneField(Ride, on_delete=models.CASCADE, related_name='ride_cancellation')
+    comment = models.CharField(max_length=255, blank=False, null=False)

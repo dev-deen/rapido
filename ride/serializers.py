@@ -16,7 +16,7 @@ class VehicleTypeSerializer(serializers.ModelSerializer):
         fields = ['vehicle_type', 'base_fair']
     
 class VehicleSerializer(serializers.ModelSerializer):
-    id = serializer.ReadOnlyField()
+    id = serializers.ReadOnlyField()
     vehicle_type = VehicleTypeSerializer(read_only=True)
     driver = UserSerializer(read_only=True)
     class Meta:
@@ -37,10 +37,11 @@ class RideCancellationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ReviewSerializer(serializers.ModelSerializer):
-    id = serializer.ReadOnly()
+    id = serializers.ReadOnlyField()
     user = UserSerializer(read_only=True)
     driver = UserSerializer(read_only=True)
     class Meta:
-        model = models.Rating
+        model = models.Review
         fields = '__all__'
+    
 

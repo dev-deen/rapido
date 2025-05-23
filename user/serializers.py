@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import User
+from django.db.models import Avg
 from ride.models import Review
 
 class UserSerializer(serializers.ModelSerializer):
@@ -10,7 +11,14 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['user_id', 'phone', 'email', 'password', 'gender', 'user_rating', 'is_driver', 'is_staff']
+        fields = ['user_id', 'phone', 'email', 'password', 'gender', 'user_rating', 'driver_rating', 'is_driver', 'is_staff']
+
+    def create(self, validated_data):
+        email = validated_data.get('email')
+        phone = validated_data.get('phone')
+        validated_data['username'] = email or phone
+        user = User.objects.create_user(**validated_data)
+        return user
 
     def get_user_rating(self, obj):
         reviews = Review.objects.filter(user=obj, is_user_to_driver_review=False)
